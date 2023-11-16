@@ -29,8 +29,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var numberEditText: EditText
     lateinit var showButton: Button
     lateinit var comicImageView: ImageView
-    var preferences = getPreferences(0)
-    var file = File(filesDir, "My_file")
+    val file = File(filesDir,"my_file")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -68,10 +67,9 @@ class MainActivity : AppCompatActivity() {
         Picasso.get().load(comicObject.getString("img")).into(comicImageView)
     }
 
-    private fun saveComic(){
-        val lastComic= FileOutputStream(file)
-
-
+    private fun saveComic(comicObject: JSONObject){
+        val outputstream = FileOutputStream(file)
+        outputstream.write(comicObject.toString())
     }
 
 }

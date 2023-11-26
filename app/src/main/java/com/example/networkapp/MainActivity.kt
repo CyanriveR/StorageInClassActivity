@@ -15,8 +15,12 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
+import java.io.BufferedReader
 import java.io.File
 import java.io.FileOutputStream
+import java.io.FileReader
+import java.lang.StringBuilder
+import kotlin.time.measureTimedValue
 
 // TODO (1: Fix any bugs)
 // TODO (2: Add function saveComic(...) to save and load comic info automatically when app starts)
@@ -70,6 +74,16 @@ class MainActivity : AppCompatActivity() {
     private fun saveComic(comicObject: JSONObject){
         val outputstream = FileOutputStream(file)
         outputstream.write(comicObject.toString())
+        if(file.exists()){
+            var br= BufferedReader(FileReader(file))
+            val text= StringBuilder()
+            var line:String?
+            while (br.readLine().also{line=it}!=null){
+                text.append(line)
+                text.append('\n')
+            }
+            br.close()
+        }
     }
 
 }
